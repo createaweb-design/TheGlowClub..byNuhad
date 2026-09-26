@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TheGlowClub by Nuhad</title>
+
+<style>
+:root{
+  --cream:#f7f0e7; --paper:#fffaf5; --ink:#34261f;
+  --rose:#b8756c; --sand:#e4cdbd; --line:#d9c9bc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font:16px/1.6 Arial,sans-serif
+}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+
+header{
+  position:sticky;top:0;z-index:5;
+  background:#f7f0e7ee;border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px)
+}
+nav{
+  height:74px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px
+}
+.logo{font:25px Georgia,serif}
+.logo small{
+  display:block;font:9px Arial;letter-spacing:.25em;
+  text-transform:uppercase
+}
+.links{display:flex;gap:24px;align-items:center;font-size:14px}
+.btn{
+  display:inline-block;padding:13px 21px;
+  border:1px solid var(--ink);font-weight:700
+}
+.btn.dark{background:var(--ink);color:white}
+
+.hero{
+  min-height:680px;display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:7vw;align-items:center;padding:70px 0
+}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:.2em;
+  font-size:11px;font-weight:bold
+}
+h1,h2,h3{
+  font-family:Georgia,serif;font-weight:400;
+  line-height:1.05;margin:0
+}
+h1{
+  font-size:clamp(56px,8vw,108px);
+  letter-spacing:-.05em
+}
+h1 em{color:var(--rose)}
+.hero p{max-width:540px;font-size:18px;margin:24px 0 32px}
+
+.art{
+  min-height:560px;background:var(--sand);
+  display:grid;place-items:center;
+  position:relative;overflow:hidden
+}
+.art:before{
+  content:"";width:70%;aspect-ratio:1;border-radius:50%;
+  background:#cf9b87;position:absolute
+}
+.bottle{
+  z-index:1;width:180px;height:320px;
+  border-radius:48% 48% 16px 16px;
+  background:linear-gradient(110deg,#fff2e5,#c78870);
+  box-shadow:0 28px 50px #5c3c2b33;
+  display:grid;place-items:center;text-align:center;
+  font:17px Georgia
+}
+.bottle:before{
+  content:"";position:absolute;width:82px;height:48px;
+  background:var(--ink);top:86px;border-radius:6px
+}
+
+.section{padding:105px 0}
+.heading{
+  display:flex;justify-content:space-between;
+  align-items:end;gap:30px;margin-bottom:42px
+}
+.heading h2{
+  font-size:clamp(42px,6vw,72px);
+  max-width:700px
+}
+.heading p{max-width:380px}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px
+}
+.product{
+  border-top:1px solid var(--ink);
+  padding-top:14px
+}
+.product-img{
+  aspect-ratio:4/5;background:#ead9cc;
+  display:grid;place-items:center;
+  font:70px Georgia;color:#9f655b
+}
+.product h3{font-size:25px;margin-top:17px}
+.product-row{
+  display:flex;justify-content:space-between;gap:12px
+}
+.product p{margin:5px 0;color:#725f54}
+
+.story{background:var(--ink);color:var(--paper)}
+.story-grid{
+  display:grid;grid-template-columns:.9fr 1.1fr;
+  gap:8vw;align-items:center
+}
+.monogram{
+  aspect-ratio:4/5;background:var(--rose);
+  display:grid;place-items:center;
+  font:190px Georgia;color:#fff7
+}
+.story h2{
+  font-size:clamp(45px,6vw,78px);
+  margin:12px 0 25px
+}
+.story p{color:#eadfd8;max-width:550px}
+
+.contact{text-align:center;background:var(--sand)}
+.contact h2{
+  font-size:clamp(48px,7vw,88px);
+  margin:10px 0 20px
+}
+.contact p{max-width:560px;margin:0 auto 28px}
+
+footer{padding:35px 0}
+.foot{
+  display:flex;justify-content:space-between;
+  gap:20px;align-items:center;font-size:13px
+}
+
+.admin{
+  position:fixed;right:18px;bottom:18px;
+  border:0;background:var(--ink);color:white;
+  padding:11px 15px;cursor:pointer
+}
+.modal{
+  position:fixed;inset:0;background:#21170fbb;
+  z-index:20;display:none;place-items:center;padding:20px
+}
+.modal.show{display:grid}
+.panel{
+  width:min(650px,100%);max-height:88vh;
+  overflow:auto;background:var(--paper);padding:26px
+}
+.panel-head{
+  display:flex;justify-content:space-between;
+  align-items:center
+}
+.close{
+  border:0;background:none;
+  font-size:26px;cursor:pointer
+}
+.editor{
+  display:grid;grid-template-columns:1fr 110px 42px;
+  gap:8px;margin:12px 0
+}
+.editor input{
+  width:100%;padding:10px;border:1px solid var(--line);
+  background:white
+}
+.add,.save{
+  width:100%;padding:12px;cursor:pointer
+}
+.add{border:1px solid var(--ink);background:none}
+.save{
+  margin-top:10px;border:0;
+  background:var(--ink);color:white;font-weight:bold
+}
+.note{font-size:12px;color:#78665c}
+
+@media(max-width:780px){
+  .links a:not(.order){display:none}
+  .hero,.story-grid{grid-template-columns:1fr}
+  .art{min-height:430px}
+  .products{grid-template-columns:1fr}
+  .heading{align-items:start;flex-direction:column}
+  .foot{align-items:start;flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="wrap">
+    <a class="logo" href="#">
+      TheGlowClub
+      <small>by Nuhad</small>
+    </a>
+
+    <div class="links">
+      <a href="#shop">Shop</a>
+      <a href="#story">Our story</a>
+      <a href="https://instagram.com/theglow.club" target="_blank">
+        Instagram
+      </a>
+      <a class="order" href="https://wa.me/96170887031" target="_blank">
+        WhatsApp
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <div class="eyebrow">Simple rituals · Beautiful glow</div>
+      <h1>Your glow, <em>your ritual.</em></h1>
+
+      <p>
+        Thoughtful beauty essentials selected by Nuhad to make
+        every routine feel effortless and personal.
+      </p>
+
+      <a class="btn dark"
+         href="https://wa.me/96170887031?text=Hi%20Nuhad!%20I%E2%80%99d%20like%20to%20know%20more%20about%20TheGlowClub."
+         target="_blank">
+        Shop on WhatsApp
+      </a>
+    </div>
+
+    <div class="art">
+      <div class="bottle">
+        THE GLOW CLUB<br>
+        <small>by Nuhad</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="shop">
+    <div class="heading">
+      <h2>Glow essentials, thoughtfully chosen.</h2>
+      <p>
+        Our collection is updated regularly. Message Nuhad for
+        recommendations and orders.
+      </p>
+    </div>
+
+    <div class="products" id="products"></div>
+  </section>
+
+  <section class="section story" id="story">
+    <div class="wrap story-grid">
+      <div class="monogram">N</div>
+
+      <div>
+        <div class="eyebrow">The story</div>
+        <h2>Beauty that feels personal.</h2>
+
+        <p>
+          TheGlowClub began with a simple idea: beauty should feel
+          welcoming, uncomplicated, and joyful. Every item is
+          selected by Nuhad with care.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="wrap">
+      <div class="eyebrow">Need a recommendation?</div>
+      <h2>Let’s find your glow.</h2>
+
+      <p>
+        Message Nuhad directly for product questions,
+        recommendations, availability, and orders.
+      </p>
+
+      <a class="btn dark"
+         href="https://wa.me/96170887031"
+         target="_blank">
+        Chat on WhatsApp
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#">
+      TheGlowClub
+      <small>by Nuhad</small>
+    </a>
+
+    <a href="https://instagram.com/theglow.club" target="_blank">
+      @theglow.club
+    </a>
+
+    <span>© <span id="year"></span> TheGlowClub</span>
+  </div>
+</footer>
+
+<button class="admin" onclick="openAdmin()">Admin edit</button>
+
+<div class="modal" id="modal">
+  <div class="panel">
+    <div class="panel-head">
+      <h3>Product editor</h3>
+      <button class="close" onclick="closeAdmin()">×</button>
+    </div>
+
+    <p class="note">
+      Products are saved on this browser. Secure multi-device
+      editing requires a hosted database.
+    </p>
+
+    <div id="editors"></div>
+
+    <button class="add" onclick="addProduct()">+ Add product</button>
+    <button class="save" onclick="saveProducts()">Save products</button>
+  </div>
+</div>
+
+<script>
+const ADMIN_PASSWORD = "change-me";
+
+const starterProducts = [
+  {
+    name: "Coming soon",
+    price: "",
+    description: "A new glow essential is on the way."
+  }
+];
+
+let items =
+  JSON.parse(localStorage.getItem("glow-products") || "null") ||
+  starterProducts;
+
+const escapeText = value =>
+  String(value).replace(/[&<>"]/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;"
+  })[character]);
+
+function renderProducts() {
+  products.innerHTML = items.map(product => `
+    <article class="product">
+      <div class="product-img">✦</div>
+
+      <div class="product-row">
+        <div>
+          <h3>${escapeText(product.name)}</h3>
+          <p>${escapeText(product.description || "")}</p>
+        </div>
+
+        <strong>${escapeText(product.price || "")}</strong>
+      </div>
+
+      <a
+        href="https://wa.me/96170887031?text=${
+          encodeURIComponent(
+            "Hi Nuhad! I am interested in " + product.name
+          )
+        }"
+        target="_blank">
+        Ask about this product →
+      </a>
+    </article>
+  `).join("");
+}
+
+function openAdmin() {
+  if (prompt("Admin password") !== ADMIN_PASSWORD) {
+    alert("Incorrect password");
+    return;
+  }
+
+  modal.classList.add("show");
+  drawEditors();
+}
+
+function closeAdmin() {
+  modal.classList.remove("show");
+}
+
+function drawEditors() {
+  editors.innerHTML = items.map((product, index) => `
+    <div class="editor">
+      <div>
+        <input
+          data-index="${index}"
+          data-key="name"
+          value="${escapeText(product.name)}"
+          placeholder="Product name">
+
+        <input
+          data-index="${index}"
+          data-key="description"
+          value="${escapeText(product.description || "")}"
+          placeholder="Short description">
+      </div>
+
+      <input
+        data-index="${index}"
+        data-key="price"
+        value="${escapeText(product.price || "")}"
+        placeholder="Price">
+
+      <button onclick="removeProduct(${index})">×</button>
+    </div>
+  `).join("");
+}
+
+function addProduct() {
+  items.push({
+    name: "New product",
+    price: "",
+    description: ""
+  });
+
+  drawEditors();
+}
+
+function removeProduct(index) {
+  items.splice(index, 1);
+  drawEditors();
+}
+
+function saveProducts() {
+  document.querySelectorAll("#editors input").forEach(input => {
+    items[input.dataset.index][input.dataset.key] =
+      input.value.trim();
+  });
+
+  localStorage.setItem("glow-products", JSON.stringify(items));
+  renderProducts();
+  closeAdmin();
+  alert("Products saved on this device.");
+}
+
+year.textContent = new Date().getFullYear();
+renderProducts();
+</script>
+</body>
+</html>
